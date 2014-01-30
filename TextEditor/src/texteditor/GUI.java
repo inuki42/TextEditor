@@ -30,9 +30,9 @@ public class GUI extends javax.swing.JFrame {
     private String zip;
     private String phone;
     private String email;
-    private String clear_output_container = "";
-    private String header = "First Name,Last Name,Address,Address2,"
-            + "City,State,Zip Code,Phone Number,EMail Address\n";
+    private String clear_output_container;
+    private String header = "First Name, Last Name, Address, Address2,"
+            + "City, State, Zip Code, Phone Number, EMail Address\n";
     private boolean error_flag = false;
     private boolean toggle_header = false;
     private Customer cst;
@@ -564,14 +564,14 @@ public class GUI extends javax.swing.JFrame {
          
          try
          {
+             cst.setPhone(PhoneNumberField.getText());
+				             
              if(PhoneNumberField.getText().length() < 10)
              {
                  PhoneNumberField.setText("");
                  error_flag = true;
                  throw Exception (phone);
              }
-				 else
-					 cst.setPhone(PhoneNumberField.getText());
                         
           }      // end try phone nbr
          
@@ -586,7 +586,7 @@ public class GUI extends javax.swing.JFrame {
          
          if(error_flag == false)
          {
-             clear_output_container = FileOutputArea.getText() + cst.print();
+             clear_output_container += cst.print();
              FirstNameField.setText("");
              LastNameField.setText("");
              Address1Field.setText("");
