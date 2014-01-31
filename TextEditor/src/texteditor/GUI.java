@@ -21,7 +21,7 @@ public class GUI extends javax.swing.JFrame {
 	/**
 	 * Creates new form GUI
 	 */
-    private String first_name;
+    /*private String first_name;
     private String last_name;
     private String address1;
     private String address2;
@@ -30,7 +30,7 @@ public class GUI extends javax.swing.JFrame {
     private String zip;
     private String phone;
     private String email;
-    private String clear_output_container = "";
+    */private String clear_output_container = "";
     private String header = "First Name,Last Name,Address,Address2,"
             + "City,State,Zip Code,Phone Number,EMail Address\n";
     private boolean error_flag = false;
@@ -428,151 +428,82 @@ public class GUI extends javax.swing.JFrame {
             if(cst.getFName().isEmpty() == true)
             {
                 error_flag = true;
-                throw Exception ("EmptyFirstNameField");
+                throw Exception ("blank");
                             
             }     // end if first name
 
-         
-               }       // end try first name
-        
-        catch (Exception EmptyFirstNameField)
-        {
-            JOptionPane.showMessageDialog(rootPane, "First Name missing", "First Name", WIDTH);
-            FirstNameField.requestFocus();
-                 
-        }   //end catch first name
-
-                
-        try
-        {
             cst.setLName(LastNameField.getText());
             
             if(cst.getLName().isEmpty() == true)
             {
                 error_flag = true;
-                throw Exception (last_name);
+                throw Exception ("blank");
                             
             }       // end if last name
 
-         }       // end try last name
-        
-        catch (Exception last_name)
-        {
-            JOptionPane.showMessageDialog(rootPane, "Last Name missing", "Last Name", WIDTH);
-            LastNameField.requestFocus();
-            
-        }   //end catch last name
-               
-        try
-        {
             cst.setAddress(Address1Field.getText());
             
             if(cst.getAddress().isEmpty() == true)
             {
                 error_flag = true;
-                throw Exception (address1);
+				    throw Exception ("blank");
             
             }       // end if address1
 
-         }       // end try address1
-        
-        catch (Exception address1)
-        {
-            JOptionPane.showMessageDialog(rootPane, "Address missing", "Address", WIDTH);
-            Address1Field.requestFocus();
-
-        }   // end catch address1
-        
-        cst.setAddress2(Address2Field.getText());
-                
-        try
-        {
+			   cst.setAddress2(Address2Field.getText());
             cst.setCity(CityField.getText());
             
             if(cst.getCity().isEmpty() == true)
             {
                 error_flag = true;
-                throw Exception (city);
+				    throw Exception ("blank");
             }       // end if city
 
-         }       // end try city
-                
-         catch (Exception city)
-         {
-             JOptionPane.showMessageDialog(rootPane, "City missing", "City", WIDTH);
-             CityField.requestFocus();
-         
-         }   // end catch city
-        
-        
-        try
-        {
+				cst.setState((String)(StateDropDown.getSelectedItem()));
             if (StateDropDown.getSelectedItem() == "Select")
             {
                 cst.setState((String)(StateDropDown.getSelectedItem()));     
-                throw Exception (State);
+				    throw Exception ("blank");
             }
           
-         }       // end try state
-                
-         catch (Exception State)
-         {
-             JOptionPane.showMessageDialog(rootPane, "State missing", "State", WIDTH);                          
-         
-         }   // end catch state
-        
-         try
-         {
              cst.setEmail(EmailAddressField.getText());
              
              if(cst.getEmail().isEmpty() == true)
              {
                  error_flag = true;
-                 throw Exception ("EMail");
+				    throw Exception ("blank");
              }
 
-          }       // end try email
-                
-                      
-         catch (Exception EMail)
-         {
-             JOptionPane.showMessageDialog(rootPane, "EMail missing", "EMail Address", WIDTH);
-             EmailAddressField.requestFocus();
-         
-         }   //end catch email
-                  
-         try
-         {
              cst.setZip(ZipCodeField.getText());
              
              if(ZipCodeField.getText().length() != 5)
              {
                  ZipCodeField.setText("");
                  error_flag = true;
-                 throw Exception (zip);
+				    throw Exception ("blank");
              }      // end if zip
                         
-          }       // end try zip
-                    
-         catch (Exception zip) 
-         {
-             JOptionPane.showMessageDialog(rootPane, "Zip Code 5 digits", "Zip Code", WIDTH);
-             error_flag = true;
-             ZipCodeField.requestFocus();
-          
-         }      // end catch zip
+				//test string match to prevent output issues with masking
+				if(PhoneNumberField.getText().equals("(   )   -    "))
+				{
+					cst.setPhone("");
+			   } //end if
+				else
+				{
+					cst.setPhone(PhoneNumberField.getText());
+				} //end else
          
-			//test string match to prevent output issues with masking
-			if(PhoneNumberField.getText().equals("(   )   -    "))
-			{
-				cst.setPhone("");
-         } //end if
-			else
-			{
-				cst.setPhone(PhoneNumberField.getText());
-			} //end else
-                     
-               
+			}       // end multi-try
+
+
+			//begin general catch
+
+        catch (Exception blank)
+        {
+            JOptionPane.showMessageDialog(rootPane, "Required field cannot be blank", "Required field", WIDTH);
+            
+        }   //end general catch
+		  
 //      Clear all fields
          
          if(error_flag == false)
