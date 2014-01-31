@@ -30,9 +30,9 @@ public class GUI extends javax.swing.JFrame {
     private String zip;
     private String phone;
     private String email;
-    private String clear_output_container;
-    private String header = "First Name, Last Name, Address, Address2,"
-            + "City, State, Zip Code, Phone Number, EMail Address\n";
+    private String clear_output_container = "";
+    private String header = "First Name,Last Name,Address,Address2,"
+            + "City,State,Zip Code,Phone Number,EMail Address\n";
     private boolean error_flag = false;
     private boolean toggle_header = false;
     private Customer cst;
@@ -184,7 +184,7 @@ public class GUI extends javax.swing.JFrame {
       PhoneNumber.setText("Phone Number");
 
       try {
-         PhoneNumberField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(###) ###-####")));
+         PhoneNumberField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(###)###-####")));
       } catch (java.text.ParseException ex) {
          ex.printStackTrace();
       }
@@ -564,20 +564,35 @@ public class GUI extends javax.swing.JFrame {
          
          try
          {
-             cst.setPhone(PhoneNumberField.getText());
-				             
-             if(PhoneNumberField.getText().length() < 10)
-             {
-                 PhoneNumberField.setText("");
-                 error_flag = true;
-                 throw Exception (phone);
-             }
+				
+				//test if phone number is left blank; if so, set the value in the object to empty string
+				if(PhoneNumberField.getText().equals("(   )   -    "))
+				{
+					  PhoneNumberField.setText("");;
+            }
+				else
+				{
+					//examine each character in phone number string; error if there is a space
+					for (int i = 0; i <= PhoneNumberField.getText().length(); i++)
+					{
+						char z = PhoneNumberField.getText().charAt(i);
+					
+						if (z == ' ')
+								  {
+									error_flag = true;
+									throw Exception (phone);
+								  }
+						else
+							continue;
+					}
+					cst.setPhone(PhoneNumberField.getText());
+				}
                         
           }      // end try phone nbr
          
          catch (Exception phone) 
          {
-             JOptionPane.showMessageDialog(rootPane, "Phone Numbere 10 digits", "Phone Number", WIDTH);
+             JOptionPane.showMessageDialog(rootPane, "Phone Number 10 digits", "Phone Number", WIDTH);
              error_flag = true;
              PhoneNumberField.requestFocus();
          }      // end catch phone nbr
@@ -586,7 +601,7 @@ public class GUI extends javax.swing.JFrame {
          
          if(error_flag == false)
          {
-             clear_output_container += cst.print();
+             clear_output_container = FileOutputArea.getText() + cst.print();
              FirstNameField.setText("");
              LastNameField.setText("");
              Address1Field.setText("");
@@ -620,13 +635,6 @@ public class GUI extends javax.swing.JFrame {
         
          cst.ClearFields();
     
-    
-    
-    
-    
-
-
-
     }//GEN-LAST:event_SaveRecordActionPerformed
 
     private void StateDropDownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StateDropDownActionPerformed
