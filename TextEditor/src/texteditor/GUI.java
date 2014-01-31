@@ -21,7 +21,7 @@ public class GUI extends javax.swing.JFrame {
 	/**
 	 * Creates new form GUI
 	 */
-    /*private String first_name;
+    private String first_name;
     private String last_name;
     private String address1;
     private String address2;
@@ -30,9 +30,9 @@ public class GUI extends javax.swing.JFrame {
     private String zip;
     private String phone;
     private String email;
-    */private String clear_output_container = "";
-    private String header = "First Name,Last Name,Address,Address2,"
-            + "City,State,Zip Code,Phone Number,EMail Address\n";
+    private String clear_output_container;
+    private String header = "First Name, Last Name, Address, Address2,"
+            + "City, State, Zip Code, Phone Number, EMail Address\n";
     private boolean error_flag = false;
     private boolean toggle_header = false;
     private Customer cst;
@@ -184,7 +184,7 @@ public class GUI extends javax.swing.JFrame {
       PhoneNumber.setText("Phone Number");
 
       try {
-         PhoneNumberField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(###)###-####")));
+         PhoneNumberField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(###) ###-####")));
       } catch (java.text.ParseException ex) {
          ex.printStackTrace();
       }
@@ -428,88 +428,165 @@ public class GUI extends javax.swing.JFrame {
             if(cst.getFName().isEmpty() == true)
             {
                 error_flag = true;
-                throw Exception ("blank");
+                throw Exception ("EmptyFirstNameField");
                             
             }     // end if first name
 
+         
+               }       // end try first name
+        
+        catch (Exception EmptyFirstNameField)
+        {
+            JOptionPane.showMessageDialog(rootPane, "First Name missing", "First Name", WIDTH);
+            FirstNameField.requestFocus();
+                 
+        }   //end catch first name
+
+                
+        try
+        {
             cst.setLName(LastNameField.getText());
             
             if(cst.getLName().isEmpty() == true)
             {
                 error_flag = true;
-                throw Exception ("blank");
+                throw Exception (last_name);
                             
             }       // end if last name
 
+         }       // end try last name
+        
+        catch (Exception last_name)
+        {
+            JOptionPane.showMessageDialog(rootPane, "Last Name missing", "Last Name", WIDTH);
+            LastNameField.requestFocus();
+            
+        }   //end catch last name
+               
+        try
+        {
             cst.setAddress(Address1Field.getText());
             
             if(cst.getAddress().isEmpty() == true)
             {
                 error_flag = true;
-				    throw Exception ("blank");
+                throw Exception (address1);
             
             }       // end if address1
 
-			   cst.setAddress2(Address2Field.getText());
+         }       // end try address1
+        
+        catch (Exception address1)
+        {
+            JOptionPane.showMessageDialog(rootPane, "Address missing", "Address", WIDTH);
+            Address1Field.requestFocus();
+
+        }   // end catch address1
+        
+        cst.setAddress2(Address2Field.getText());
+                
+        try
+        {
             cst.setCity(CityField.getText());
             
             if(cst.getCity().isEmpty() == true)
             {
                 error_flag = true;
-				    throw Exception ("blank");
+                throw Exception (city);
             }       // end if city
 
-				cst.setState((String)(StateDropDown.getSelectedItem()));
+         }       // end try city
+                
+         catch (Exception city)
+         {
+             JOptionPane.showMessageDialog(rootPane, "City missing", "City", WIDTH);
+             CityField.requestFocus();
+         
+         }   // end catch city
+        
+        
+        try
+        {
             if (StateDropDown.getSelectedItem() == "Select")
             {
                 cst.setState((String)(StateDropDown.getSelectedItem()));     
-				    throw Exception ("blank");
+                throw Exception (State);
             }
           
+         }       // end try state
+                
+         catch (Exception State)
+         {
+             JOptionPane.showMessageDialog(rootPane, "State missing", "State", WIDTH);                          
+         
+         }   // end catch state
+        
+         try
+         {
              cst.setEmail(EmailAddressField.getText());
              
              if(cst.getEmail().isEmpty() == true)
              {
                  error_flag = true;
-				    throw Exception ("blank");
+                 throw Exception ("EMail");
              }
 
+          }       // end try email
+                
+                      
+         catch (Exception EMail)
+         {
+             JOptionPane.showMessageDialog(rootPane, "EMail missing", "EMail Address", WIDTH);
+             EmailAddressField.requestFocus();
+         
+         }   //end catch email
+                  
+         try
+         {
              cst.setZip(ZipCodeField.getText());
              
              if(ZipCodeField.getText().length() != 5)
              {
                  ZipCodeField.setText("");
                  error_flag = true;
-				    throw Exception ("blank");
+                 throw Exception (zip);
              }      // end if zip
                         
-				//test string match to prevent output issues with masking
-				if(PhoneNumberField.getText().equals("(   )   -    "))
-				{
-					cst.setPhone("");
-			   } //end if
-				else
-				{
-					cst.setPhone(PhoneNumberField.getText());
-				} //end else
+          }       // end try zip
+                    
+         catch (Exception zip) 
+         {
+             JOptionPane.showMessageDialog(rootPane, "Zip Code 5 digits", "Zip Code", WIDTH);
+             error_flag = true;
+             ZipCodeField.requestFocus();
+          
+         }      // end catch zip
          
-			}       // end multi-try
-
-
-			//begin general catch
-
-        catch (Exception blank)
-        {
-            JOptionPane.showMessageDialog(rootPane, "Required field cannot be blank", "Required field", WIDTH);
-            
-        }   //end general catch
-		  
+         try
+         {
+             cst.setPhone(PhoneNumberField.getText());
+				             
+             if(PhoneNumberField.getText().length() < 10)
+             {
+                 PhoneNumberField.setText("");
+                 error_flag = true;
+                 throw Exception (phone);
+             }
+                        
+          }      // end try phone nbr
+         
+         catch (Exception phone) 
+         {
+             JOptionPane.showMessageDialog(rootPane, "Phone Numbere 10 digits", "Phone Number", WIDTH);
+             error_flag = true;
+             PhoneNumberField.requestFocus();
+         }      // end catch phone nbr
+                
 //      Clear all fields
          
          if(error_flag == false)
          {
-				//get text and append in case of edits; blank the rest
-             clear_output_container = FileOutputArea.getText() + cst.print();
+             clear_output_container += cst.print();
              FirstNameField.setText("");
              LastNameField.setText("");
              Address1Field.setText("");
@@ -523,7 +600,7 @@ public class GUI extends javax.swing.JFrame {
              
              // Header line
              
-            /* if(toggle_header == true)
+             if(toggle_header == true)
              {
                  FileOutputArea.setText(header);
                  FileOutputArea.append(clear_output_container);
@@ -533,12 +610,8 @@ public class GUI extends javax.swing.JFrame {
              {
                  FileOutputArea.setText(clear_output_container);
              }      // end else
-				 * */
-				 
-				 FileOutputArea.setText(clear_output_container);
          }  // end if
-			
-			        
+         
          
          else 
          {
@@ -547,6 +620,13 @@ public class GUI extends javax.swing.JFrame {
         
          cst.ClearFields();
     
+    
+    
+    
+    
+
+
+
     }//GEN-LAST:event_SaveRecordActionPerformed
 
     private void StateDropDownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StateDropDownActionPerformed
@@ -554,7 +634,8 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_StateDropDownActionPerformed
 
     private void ExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitActionPerformed
-        System.exit(0);
+
+        System.exit(0);        // TODO add your handling code here:
     }//GEN-LAST:event_ExitActionPerformed
 
     private void ZipCodeFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ZipCodeFieldActionPerformed
@@ -565,9 +646,6 @@ public class GUI extends javax.swing.JFrame {
         
        // Add or remove header line
         
-		 //get text from file output box first, in case of user edits
-		 clear_output_container = FileOutputArea.getText();
-		 
         if(toggle_header == false)
             toggle_header = true;
         else
@@ -581,9 +659,6 @@ public class GUI extends javax.swing.JFrame {
         }
         else
         {
-				//strip header length from start of string; this cannot be called unless header has already been added
-				clear_output_container = clear_output_container.substring(header.length(), clear_output_container.length());
-			  
             FileOutputArea.setText(clear_output_container);
         }
         
