@@ -562,45 +562,22 @@ public class GUI extends javax.swing.JFrame {
           
          }      // end catch zip
          
-         try
-         {
-				
-				//test if phone number is left blank; if so, set the value in the object to empty string
-				if(PhoneNumberField.getText().equals("(   )   -    "))
-				{
-					  PhoneNumberField.setText("");;
-            }
-				else
-				{
-					//examine each character in phone number string; error if there is a space
-					for (int i = 0; i <= PhoneNumberField.getText().length(); i++)
-					{
-						char z = PhoneNumberField.getText().charAt(i);
-					
-						if (z == ' ')
-								  {
-									error_flag = true;
-									throw Exception (phone);
-								  }
-						else
-							continue;
-					}
-					cst.setPhone(PhoneNumberField.getText());
-				}
-                        
-          }      // end try phone nbr
-         
-         catch (Exception phone) 
-         {
-             JOptionPane.showMessageDialog(rootPane, "Phone Number 10 digits", "Phone Number", WIDTH);
-             error_flag = true;
-             PhoneNumberField.requestFocus();
-         }      // end catch phone nbr
-                
+			//test string match to prevent output issues with masking
+			if(PhoneNumberField.getText().equals("(   )   -    "))
+			{
+				cst.setPhone("");
+         } //end if
+			else
+			{
+				cst.setPhone(PhoneNumberField.getText());
+			} //end else
+                     
+               
 //      Clear all fields
          
          if(error_flag == false)
          {
+				//get text and append in case of edits; blank the rest
              clear_output_container = FileOutputArea.getText() + cst.print();
              FirstNameField.setText("");
              LastNameField.setText("");
@@ -615,7 +592,7 @@ public class GUI extends javax.swing.JFrame {
              
              // Header line
              
-             if(toggle_header == true)
+            /* if(toggle_header == true)
              {
                  FileOutputArea.setText(header);
                  FileOutputArea.append(clear_output_container);
@@ -625,8 +602,12 @@ public class GUI extends javax.swing.JFrame {
              {
                  FileOutputArea.setText(clear_output_container);
              }      // end else
+				 * */
+				 
+				 FileOutputArea.setText(clear_output_container);
          }  // end if
-         
+			
+			        
          
          else 
          {
@@ -642,8 +623,7 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_StateDropDownActionPerformed
 
     private void ExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitActionPerformed
-
-        System.exit(0);        // TODO add your handling code here:
+        System.exit(0);
     }//GEN-LAST:event_ExitActionPerformed
 
     private void ZipCodeFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ZipCodeFieldActionPerformed
@@ -654,6 +634,9 @@ public class GUI extends javax.swing.JFrame {
         
        // Add or remove header line
         
+		 //get text from file output box first, in case of user edits
+		 clear_output_container = FileOutputArea.getText();
+		 
         if(toggle_header == false)
             toggle_header = true;
         else
@@ -667,6 +650,9 @@ public class GUI extends javax.swing.JFrame {
         }
         else
         {
+				//strip header length from start of string; this cannot be called unless header has already been added
+				clear_output_container = clear_output_container.substring(header.length(), clear_output_container.length());
+			  
             FileOutputArea.setText(clear_output_container);
         }
         
