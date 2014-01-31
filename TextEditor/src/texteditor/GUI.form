@@ -42,7 +42,7 @@
                       </Group>
                       <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
                       <Component id="BottomColorBarRed" min="-2" pref="192" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="11" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="721" max="-2" attributes="0"/>
@@ -390,6 +390,9 @@
           <ComponentRef name="LastNameField"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="FirstNameFieldFocusGained"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="LastName">
       <Properties>
@@ -402,6 +405,9 @@
           <ComponentRef name="Address1Field"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="LastNameFieldFocusGained"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="AddressLine1">
       <Properties>
@@ -414,6 +420,9 @@
           <ComponentRef name="Address2Field"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="Address1FieldFocusGained"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="AddressLine2">
       <Properties>
@@ -429,6 +438,9 @@
           <ComponentRef name="CityField"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="Address2FieldFocusGained"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="City">
       <Properties>
@@ -441,6 +453,9 @@
           <ComponentRef name="StateDropDown"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="CityFieldFocusGained"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="StateLabel">
       <Properties>
@@ -526,6 +541,7 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ZipCodeFieldActionPerformed"/>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="ZipCodeFieldFocusGained"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="PhoneNumber">
@@ -542,6 +558,9 @@
           <Format format="(###)###-####" subtype="-1" type="5"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="PhoneNumberFieldFocusGained"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="EmailAddress">
       <Properties>
@@ -554,6 +573,9 @@
           <ComponentRef name="SaveRecord"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="EmailAddressFieldFocusGained"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="FileOutput">
       <Properties>

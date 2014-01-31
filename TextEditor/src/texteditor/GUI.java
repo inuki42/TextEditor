@@ -32,7 +32,7 @@ public class GUI extends javax.swing.JFrame {
     private String email;
     */private String clear_output_container = "";
     private String header = "First Name,Last Name,Address,Address2,"
-            + "City,State,Zip Code,Phone Number,EMail Address\n";
+            + "City,State,Zip Code,Phone Number,Email Address\n";
     private boolean error_flag = false;
     private boolean toggle_header = false;
     private Customer cst;
@@ -139,23 +139,48 @@ public class GUI extends javax.swing.JFrame {
       FirstName.setText("First Name *");
 
       FirstNameField.setNextFocusableComponent(LastNameField);
+      FirstNameField.addFocusListener(new java.awt.event.FocusAdapter() {
+         public void focusGained(java.awt.event.FocusEvent evt) {
+            FirstNameFieldFocusGained(evt);
+         }
+      });
 
       LastName.setText("Last Name *");
 
       LastNameField.setNextFocusableComponent(Address1Field);
+      LastNameField.addFocusListener(new java.awt.event.FocusAdapter() {
+         public void focusGained(java.awt.event.FocusEvent evt) {
+            LastNameFieldFocusGained(evt);
+         }
+      });
 
       AddressLine1.setText("Address 1 *");
 
       Address1Field.setNextFocusableComponent(Address2Field);
+      Address1Field.addFocusListener(new java.awt.event.FocusAdapter() {
+         public void focusGained(java.awt.event.FocusEvent evt) {
+            Address1FieldFocusGained(evt);
+         }
+      });
 
       AddressLine2.setForeground(new java.awt.Color(51, 51, 255));
       AddressLine2.setText("Address 2");
 
       Address2Field.setNextFocusableComponent(CityField);
+      Address2Field.addFocusListener(new java.awt.event.FocusAdapter() {
+         public void focusGained(java.awt.event.FocusEvent evt) {
+            Address2FieldFocusGained(evt);
+         }
+      });
 
       City.setText("City *");
 
       CityField.setNextFocusableComponent(StateDropDown);
+      CityField.addFocusListener(new java.awt.event.FocusAdapter() {
+         public void focusGained(java.awt.event.FocusEvent evt) {
+            CityFieldFocusGained(evt);
+         }
+      });
 
       StateLabel.setText("State *");
 
@@ -179,6 +204,11 @@ public class GUI extends javax.swing.JFrame {
             ZipCodeFieldActionPerformed(evt);
          }
       });
+      ZipCodeField.addFocusListener(new java.awt.event.FocusAdapter() {
+         public void focusGained(java.awt.event.FocusEvent evt) {
+            ZipCodeFieldFocusGained(evt);
+         }
+      });
 
       PhoneNumber.setForeground(new java.awt.Color(51, 51, 255));
       PhoneNumber.setText("Phone Number");
@@ -188,10 +218,20 @@ public class GUI extends javax.swing.JFrame {
       } catch (java.text.ParseException ex) {
          ex.printStackTrace();
       }
+      PhoneNumberField.addFocusListener(new java.awt.event.FocusAdapter() {
+         public void focusGained(java.awt.event.FocusEvent evt) {
+            PhoneNumberFieldFocusGained(evt);
+         }
+      });
 
       EmailAddress.setText("Email Address *");
 
       EmailAddressField.setNextFocusableComponent(SaveRecord);
+      EmailAddressField.addFocusListener(new java.awt.event.FocusAdapter() {
+         public void focusGained(java.awt.event.FocusEvent evt) {
+            EmailAddressFieldFocusGained(evt);
+         }
+      });
 
       FileOutput.setFont(new java.awt.Font("Gill Sans", 1, 18)); // NOI18N
       FileOutput.setText("File Output");
@@ -251,7 +291,7 @@ public class GUI extends javax.swing.JFrame {
                         .addComponent(BottomColorBarGreen, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)))
                   .addGap(3, 3, 3)
                   .addComponent(BottomColorBarRed, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                  .addGap(0, 11, Short.MAX_VALUE))
+                  .addGap(0, 0, Short.MAX_VALUE))
                .addGroup(layout.createSequentialGroup()
                   .addGap(721, 721, 721)
                   .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -522,7 +562,8 @@ public class GUI extends javax.swing.JFrame {
              FirstNameField.requestFocus();
              
              // Header line
-             
+             //unneeded; will add duplicate header line if header already toggled on
+				 //handled more completely in header button toggle
             /* if(toggle_header == true)
              {
                  FileOutputArea.setText(header);
@@ -537,14 +578,7 @@ public class GUI extends javax.swing.JFrame {
 				 
 				 FileOutputArea.setText(clear_output_container);
          }  // end if
-			
-			        
-         
-         else 
-         {
-                //FileOutputArea.setText("");
-         }
-        
+
          cst.ClearFields();
     
     }//GEN-LAST:event_SaveRecordActionPerformed
@@ -588,6 +622,38 @@ public class GUI extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_AddHeaderRowActionPerformed
+
+   private void FirstNameFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FirstNameFieldFocusGained
+		FirstNameField.selectAll();
+   }//GEN-LAST:event_FirstNameFieldFocusGained
+
+   private void LastNameFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_LastNameFieldFocusGained
+      LastNameField.selectAll();
+   }//GEN-LAST:event_LastNameFieldFocusGained
+
+   private void Address1FieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_Address1FieldFocusGained
+     Address1Field.selectAll();
+   }//GEN-LAST:event_Address1FieldFocusGained
+
+   private void Address2FieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_Address2FieldFocusGained
+      Address2Field.selectAll();
+   }//GEN-LAST:event_Address2FieldFocusGained
+
+   private void CityFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_CityFieldFocusGained
+      CityField.selectAll();
+   }//GEN-LAST:event_CityFieldFocusGained
+
+   private void ZipCodeFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_ZipCodeFieldFocusGained
+      ZipCodeField.selectAll();
+   }//GEN-LAST:event_ZipCodeFieldFocusGained
+
+   private void PhoneNumberFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_PhoneNumberFieldFocusGained
+      PhoneNumberField.selectAll();
+   }//GEN-LAST:event_PhoneNumberFieldFocusGained
+
+   private void EmailAddressFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_EmailAddressFieldFocusGained
+      EmailAddressField.selectAll();
+   }//GEN-LAST:event_EmailAddressFieldFocusGained
 
 	/**
 	 * @param args the command line arguments
